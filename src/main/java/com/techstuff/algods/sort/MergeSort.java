@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MergeSort<T extends Comparable<T>> {
     
-private List<T> sequence = new ArrayList<>();
+    private List<T> sequence = new ArrayList<>();
     
     public MergeSort(List<T> sequence) {
         for(T elem : sequence) {
