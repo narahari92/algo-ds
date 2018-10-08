@@ -32,4 +32,13 @@ public class StackTest {
         stack.pop();
         stack.pop();
     }
+    
+    @Test(expected=RuntimeException.class)
+    public void testStackOverflow() {
+        Stack<Long> stack = new Stack<>(3);
+        stack.push(1l);
+        stack.push(2l);
+        stack.push(3l);
+        stack.push(4l);
+    }
 }

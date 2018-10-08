@@ -12,6 +12,9 @@ public class Stack<T> {
     }
     
     public void push(T elem) {
+        if(top == elements.length - 1) {
+            throw new RuntimeException("Stack overflow error");
+        }
         this.elements[++top] = elem;
     }
     
