@@ -16,6 +16,16 @@ public class StackTest {
     }
     
     @Test
+    public void testFull() {
+        Stack<Integer> stack = new Stack<>(3);
+        stack.push(2);
+        stack.push(3);
+        assertEquals(false, stack.isFull());
+        stack.push(1);
+        assertEquals(true, stack.isFull());
+    }
+    
+    @Test
     public void testPushPop() {
         Stack<Integer> stack = new Stack<>(5);
         stack.push(50);

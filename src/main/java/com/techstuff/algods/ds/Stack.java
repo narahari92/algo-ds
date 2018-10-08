@@ -12,7 +12,7 @@ public class Stack<T> {
     }
     
     public void push(T elem) {
-        if(top == elements.length - 1) {
+        if(isFull()) {
             throw new RuntimeException("Stack overflow error");
         }
         this.elements[++top] = elem;
@@ -20,7 +20,7 @@ public class Stack<T> {
     
     @SuppressWarnings("unchecked")
     public T pop() {
-        if(top < 0) {
+        if(isEmpty()) {
             throw new RuntimeException("Stack underflow error");
         }
         return (T) elements[top--];
@@ -28,6 +28,10 @@ public class Stack<T> {
     
     public boolean isEmpty() {
         return top < 0;
+    }
+    
+    public boolean isFull() {
+        return top == elements.length - 1;
     }
     
 }
