@@ -13,9 +13,12 @@ public class RedBlackTree<T extends Comparable<T>> {
     
     public RedBlackTree(List<T> sequence) {
         this.root = sentinel;
+        for(T elem : sequence) {
+        		insert(elem);
+        }
     }
     
-    void leftRotate(Node x) {
+    private void leftRotate(Node x) {
         Node pivot = x.right;
         x.setRight(pivot.left);
         if(x.parent == sentinel) {
@@ -29,7 +32,7 @@ public class RedBlackTree<T extends Comparable<T>> {
         pivot.setLeft(x);
     }
     
-    void rightRotate(Node x) {
+    private void rightRotate(Node x) {
         Node pivot = x.left;
         x.setLeft(pivot.right);
         if(x.parent == sentinel) {
@@ -65,7 +68,7 @@ public class RedBlackTree<T extends Comparable<T>> {
         insertFixup(newNode);
     }
     
-    void insertFixup(Node newNode) {
+    private void insertFixup(Node newNode) {
         Node current = newNode;
         while(current.parent.color == Color.RED) {
             if(current.parent == current.parent.parent.left) {
@@ -107,7 +110,7 @@ public class RedBlackTree<T extends Comparable<T>> {
         return getInorder(root, new ArrayList<Tuple2<T, Color>>());
     }
     
-    public List<Tuple2<T, Color>> getInorder(Node current, List<Tuple2<T, Color>> list) {
+    private List<Tuple2<T, Color>> getInorder(Node current, List<Tuple2<T, Color>> list) {
         if(current == sentinel) {
             return list;
         }
@@ -140,7 +143,7 @@ public class RedBlackTree<T extends Comparable<T>> {
         return getSize(root);
     }
     
-    public int getSize(Node current) {
+    private int getSize(Node current) {
         if(current == sentinel) {
             return 0;
         }
@@ -182,7 +185,7 @@ public class RedBlackTree<T extends Comparable<T>> {
         }
     }
     
-    private enum Color {
+    static enum Color {
         RED,
         BLACK
     }

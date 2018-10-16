@@ -5,27 +5,27 @@ import java.util.List;
 
 public class BST<T extends Comparable<T>> {
 	
-	private Node<T> root;
+	private Node root;
 	
 	public BST(List<T> sequence) {
 		for(T elem : sequence) {
 			if(root == null) {
-				root = new Node<>(elem);
+				root = new Node(elem);
 			} else {
-				Node<T> current = root;
+				Node current = root;
 				while(true) {
 					if(current.data.compareTo(elem) < 0) {
 						if(current.right != null) {
 							current = current.right;
 						} else {
-							current.setRight(new Node<>(elem));
+							current.setRight(new Node(elem));
 							break;
 						}
 					} else {
 						if(current.left != null) {
 							current = current.left;
 						} else {
-							current.setLeft(new Node<>(elem));
+							current.setLeft(new Node(elem));
 							break;
 						}
 					}
@@ -34,8 +34,8 @@ public class BST<T extends Comparable<T>> {
 		}
 	}
 	
-	private Node<T> search(T data) {
-		Node<T> current = root;
+	private Node search(T data) {
+		Node current = root;
 		while(current != null && !current.data.equals(data)) {
 			if(current.data.compareTo(data) < 0) {
 				current = current.right;
@@ -50,7 +50,7 @@ public class BST<T extends Comparable<T>> {
 		return getMinimum(root);
 	}
 	
-	private T getMinimum(Node<T> current) {
+	private T getMinimum(Node current) {
 		while(current.left != null) {
 			current = current.left;
 		}
@@ -61,7 +61,7 @@ public class BST<T extends Comparable<T>> {
 		return getMaximum(root);
 	}
 	
-	private T getMaximum(Node<T> current) {
+	private T getMaximum(Node current) {
 		while(current.right != null) {
 			current = current.right;
 		}
@@ -69,11 +69,11 @@ public class BST<T extends Comparable<T>> {
 	}
 	
 	public T getSuccessor(T data) {
-		Node<T> current = search(data);
+		Node current = search(data);
 		if(current.right != null) {
 			return getMinimum(current.right);
 		}
-		Node<T> parent = current.parent;
+		Node parent = current.parent;
 		while(parent != null && current.equals(parent.right)) {
 			current = parent;
 			parent = current.parent;
@@ -86,11 +86,11 @@ public class BST<T extends Comparable<T>> {
 	}
 	
 	public T getPredecessor(T data) {
-		Node<T> current = search(data);
+		Node current = search(data);
 		if(current.left != null) {
 			return getMaximum(current.left);
 		}
-		Node<T> parent = current.parent;
+		Node parent = current.parent;
 		while(parent != null && current.equals(parent.left)) {
 			current = parent;
 			parent = current.parent;
@@ -103,8 +103,8 @@ public class BST<T extends Comparable<T>> {
 	}
 	
 	public void insert(T data) {
-		Node<T> current = root;
-		Node<T> prev = null;
+		Node current = root;
+		Node prev = null;
 		while(current != null) {
 			prev = current;
 			if(current.data.compareTo(data) < 0) {
@@ -114,23 +114,23 @@ public class BST<T extends Comparable<T>> {
 			}
 		}
 		if(prev == null) {
-			root = new Node<>(data);
+			root = new Node(data);
 		}
 		if(prev.data.compareTo(data) < 0) {
-			prev.setRight(new Node<>(data));
+			prev.setRight(new Node(data));
 		} else {
-			prev.setLeft(new Node<>(data));
+			prev.setLeft(new Node(data));
 		}
 	}
 	
 	public void delete(T data) {
-		Node<T> node = search(data);
+		Node node = search(data);
 		if(node.left == null) {
 			transplant(node, node.right);
 		} else if(node.right == null) {
 			transplant(node, node.left);
 		} else {
-			Node<T> successor = node.right;
+			Node successor = node.right;
 			while(successor.left != null) {
 				successor = successor.left;
 			}
@@ -141,7 +141,7 @@ public class BST<T extends Comparable<T>> {
 		}
 	}
 	
-	public void transplant(Node<T> current, Node<T> replacement) {
+	public void transplant(Node current, Node replacement) {
 		if(current.parent == null) {
 			root = replacement;
 		} else if(current.parent.left == current) {
@@ -155,7 +155,7 @@ public class BST<T extends Comparable<T>> {
 		return getInorder(new ArrayList<T>(), root);
 	}
 	
-	public List<T> getInorder(List<T> list, Node<T> node) {
+	public List<T> getInorder(List<T> list, Node node) {
 		if(node != null) {
 			getInorder(list, node.left);
 			list.add(node.data);
@@ -165,11 +165,11 @@ public class BST<T extends Comparable<T>> {
 	}
 	
 	public List<T> getLevelorder() {
-		Queue<Node<T>> queue = new Queue<>(getSize());
+		Queue<Node> queue = new Queue<>(getSize());
 		List<T> list = new ArrayList<>();
 		queue.enqueue(root);
 		while(!queue.isEmpty()) {
-			Node<T> current = queue.dequeue();
+			Node current = queue.dequeue();
 			if(current.left != null) {
 				queue.enqueue(current.left);
 			}
@@ -185,7 +185,7 @@ public class BST<T extends Comparable<T>> {
 		return getSize(root);
 	}
 	
-	private int getSize(Node<T> node) {
+	private int getSize(Node node) {
 		if(node == null) {
 			return 0;
 		}
@@ -198,7 +198,7 @@ public class BST<T extends Comparable<T>> {
 		printLevel(root, 0, "root");
 	}
 	
-	private void printLevel(Node<T> current, int i, String pos) {
+	private void printLevel(Node current, int i, String pos) {
 		if(current == null) {
 			return;
 		}
@@ -210,13 +210,13 @@ public class BST<T extends Comparable<T>> {
 		printLevel(current.right, i + 1, "right");
 	}
 
-	private class Node<T> {
+	private class Node {
 		
-		private Node<T> parent;
+		private Node parent;
 		
-		private Node<T> left;
+		private Node left;
 		
-		private Node<T> right;
+		private Node right;
 		
 		private T data;
 		
@@ -224,14 +224,14 @@ public class BST<T extends Comparable<T>> {
 			this.data = data;
 		}
 		
-		public void setLeft(Node<T> left) {
+		public void setLeft(Node left) {
 			this.left = left;
 			if(left != null) {
 				left.parent = this;
 			}
 		}
 		
-		public void setRight(Node<T> right) {
+		public void setRight(Node right) {
 			this.right = right;
 			if(right != null) {
 				right.parent = this;
