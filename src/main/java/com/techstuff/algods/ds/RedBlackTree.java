@@ -106,6 +106,115 @@ public class RedBlackTree<T extends Comparable<T>> {
         this.root.color = Color.BLACK;
     }
     
+    public Node search(T data) {
+    		Node current = root;
+    		while(current != sentinel && !current.data.equals(data)) {
+    			if(current.data.compareTo(data) < 0) {
+    				current = current.right;
+    			} else {
+    				current = current.left;
+    			}
+    		}
+    		return current;
+    }
+    
+    public void transplant(Node x, Node y) {
+    		if(x.parent == sentinel) {
+    			root = y;
+    			root.parent = y.parent;
+    		} else if(x == x.parent.left) {
+    			x.parent.setLeft(y);
+    		} else {
+    			x.parent.setRight(y);
+    		}
+    }
+    
+    public void delete(T data) {
+    		Node deleteNode = search(data);
+    		Node y = deleteNode;
+    		Node x = sentinel;
+    		Color oldColor = y.color;
+    		if(deleteNode.left == null) {
+    			x = deleteNode.right;
+    			transplant(deleteNode, deleteNode.right);
+    		} else if(deleteNode.right == null) {
+    			x = deleteNode.left;
+    			transplant(deleteNode, deleteNode.left);
+    		} else {
+    			Node successor = deleteNode.right;
+    			while(successor.left != sentinel) {
+    				successor = successor.left;
+    			}
+    			oldColor = successor.color;
+    			transplant(successor, successor.right);
+    			transplant(deleteNode, successor);
+    			successor.setLeft(deleteNode.left);
+    			successor.setRight(deleteNode.right);
+    			y = successor;
+    			y.color = deleteNode.color;
+    			x = successor.right;
+    		}
+    		if(oldColor == Color.BLACK) {
+    			deleteFixup(x);
+    		}
+    }
+    
+    // x pointer is considered extra black. So we fix double blacks
+    public void deleteFixup(Node x) {
+    		while(x != root && x.color == Color.BLACK) {
+    			if(x == x.parent.left) {
+    				Node sibling = x.parent.right;
+    				if(sibling.color == Color.RED) {
+    					sibling.color = Color.BLACK;
+    					x.parent.color = Color.RED;
+    					leftRotate(x.parent);
+    					sibling = x.parent.right;
+    				}
+    				if(sibling.left.color == Color.BLACK && sibling.right.color == Color.BLACK) {
+    					sibling.color = Color.RED;
+    					x = x.parent;
+    				} else {
+    					if(sibling.right.color == Color.BLACK) {
+    						sibling.left.color = Color.BLACK;
+    						sibling.color = Color.RED;
+    						rightRotate(sibling);
+    						sibling = x.parent.right;
+    					}
+    					sibling.color = sibling.parent.color;
+    					x.parent.color = Color.BLACK;
+    					sibling.right.color = Color.BLACK;
+    					leftRotate(x.parent);
+    					x = root;
+    				}
+    			} else {
+    				Node sibling = x.parent.left;
+    				if(sibling.color == Color.RED) {
+    					sibling.color = Color.BLACK;
+    					x.parent.color = Color.RED;
+    					rightRotate(x.parent);
+    					sibling = x.parent.left;
+    				}
+    				if(sibling.left.color == Color.BLACK && sibling.right.color == Color.BLACK) {
+    					sibling.color = Color.RED;
+    					x = x.parent;
+    				} else {
+    					if(sibling.left.color == Color.BLACK) {
+    						sibling.right.color = Color.BLACK;
+    						sibling.color = Color.RED;
+    						leftRotate(sibling);
+    						sibling = x.parent.left;
+    					}
+    					sibling.color = sibling.parent.color;
+    					x.parent.color = Color.BLACK;
+    					sibling.left.color = Color.BLACK;
+    					rightRotate(x.parent);
+    					x = root;
+    				}
+    			}
+    			x.color = Color.BLACK;
+    		}
+    }
+    
     public List<Tuple2<T, Color>> getInorder() {
         return getInorder(root, new ArrayList<Tuple2<T, Color>>());
     }
