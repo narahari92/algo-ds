@@ -72,4 +72,58 @@ public class RedBlackTreeTest {
 				new Tuple2<>(15, Color.RED));
 		assertEquals(expected, rbt.getLevelorder());
 	}
+	
+	@Test
+	public void testDeleteSingleLeftChild() {
+		List<Integer> sequence = Arrays.asList(20, 10, 30, 5, 3, 1, 25, 40, 50);
+		RedBlackTree<Integer> rbt = new RedBlackTree<>(sequence);
+		rbt.delete(3);
+		List<Tuple2<Integer, Color>> expected = 
+				Arrays.asList(new Tuple2<>(1, Color.BLACK), new Tuple2<>(5, Color.RED),
+						new Tuple2<>(10, Color.BLACK), new Tuple2<>(20, Color.BLACK),
+						new Tuple2<>(25, Color.BLACK), new Tuple2<>(30, Color.RED),
+						new Tuple2<>(40, Color.BLACK), new Tuple2<>(50, Color.RED));
+		assertEquals(expected, rbt.getInorder());
+		expected = Arrays.asList(new Tuple2<>(20, Color.BLACK), new Tuple2<>(5, Color.RED),
+				new Tuple2<>(30, Color.RED), new Tuple2<>(1, Color.BLACK), new Tuple2<>(10, Color.BLACK),
+				new Tuple2<>(25, Color.BLACK), new Tuple2<>(40, Color.BLACK), 
+				new Tuple2<>(50, Color.RED));
+		assertEquals(expected, rbt.getLevelorder());
+	}
+	
+	@Test
+	public void testDeleteSingleRightChild() {
+		List<Integer> sequence = Arrays.asList(20, 10, 30, 5, 3, 1, 25, 40, 50);
+		RedBlackTree<Integer> rbt = new RedBlackTree<>(sequence);
+		rbt.delete(40);
+		List<Tuple2<Integer, Color>> expected =
+				Arrays.asList(new Tuple2<>(1, Color.RED), new Tuple2<>(3, Color.BLACK),
+						new Tuple2<>(5, Color.RED), new Tuple2<>(10, Color.BLACK),
+						new Tuple2<>(20, Color.BLACK), new Tuple2<>(25, Color.BLACK),
+						new Tuple2<>(30, Color.RED), new Tuple2<>(50, Color.BLACK));
+		assertEquals(expected, rbt.getInorder());
+		expected = Arrays.asList(new Tuple2<>(20, Color.BLACK), new Tuple2<>(5, Color.RED),
+				new Tuple2<>(30, Color.RED), new Tuple2<>(3, Color.BLACK),
+				new Tuple2<>(10, Color.BLACK), new Tuple2<>(25, Color.BLACK),
+				new Tuple2<>(50, Color.BLACK), new Tuple2<>(1, Color.RED));
+		assertEquals(expected, rbt.getLevelorder());
+	}
+	
+	@Test
+	public void testDeleteTwoChildren() {
+		List<Integer> sequence = Arrays.asList(20, 10, 30, 5, 3, 1, 25, 40, 50);
+		RedBlackTree<Integer> rbt = new RedBlackTree<>(sequence);
+		rbt.delete(20);
+		List<Tuple2<Integer, Color>> expected = 
+				Arrays.asList(new Tuple2<>(1, Color.RED), new Tuple2<>(3, Color.BLACK),
+						new Tuple2<>(5, Color.RED), new Tuple2<>(10, Color.BLACK),
+						new Tuple2<>(25, Color.BLACK), new Tuple2<>(30, Color.BLACK),
+						new Tuple2<>(40, Color.RED), new Tuple2<>(50, Color.BLACK));
+		assertEquals(expected, rbt.getInorder());
+		expected = Arrays.asList(new Tuple2<>(25, Color.BLACK), new Tuple2<>(5, Color.RED),
+				new Tuple2<>(40, Color.RED), new Tuple2<>(3, Color.BLACK), 
+				new Tuple2<>(10, Color.BLACK), new Tuple2<>(30, Color.BLACK),
+				new Tuple2<>(50, Color.BLACK), new Tuple2<>(1, Color.RED));
+		assertEquals(expected, rbt.getLevelorder());
+	}
 }

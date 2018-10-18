@@ -134,10 +134,10 @@ public class RedBlackTree<T extends Comparable<T>> {
     		Node y = deleteNode;
     		Node x = sentinel;
     		Color oldColor = y.color;
-    		if(deleteNode.left == null) {
+    		if(deleteNode.left == sentinel) {
     			x = deleteNode.right;
     			transplant(deleteNode, deleteNode.right);
-    		} else if(deleteNode.right == null) {
+    		} else if(deleteNode.right == sentinel) {
     			x = deleteNode.left;
     			transplant(deleteNode, deleteNode.left);
     		} else {
@@ -146,13 +146,13 @@ public class RedBlackTree<T extends Comparable<T>> {
     				successor = successor.left;
     			}
     			oldColor = successor.color;
+    			x = successor.right;
     			transplant(successor, successor.right);
     			transplant(deleteNode, successor);
     			successor.setLeft(deleteNode.left);
     			successor.setRight(deleteNode.right);
     			y = successor;
     			y.color = deleteNode.color;
-    			x = successor.right;
     		}
     		if(oldColor == Color.BLACK) {
     			deleteFixup(x);
@@ -211,8 +211,8 @@ public class RedBlackTree<T extends Comparable<T>> {
     					x = root;
     				}
     			}
-    			x.color = Color.BLACK;
     		}
+    		x.color = Color.BLACK;
     }
     
     public List<Tuple2<T, Color>> getInorder() {
@@ -258,6 +258,22 @@ public class RedBlackTree<T extends Comparable<T>> {
         }
         return getSize(current.left) + getSize(current.right) + 1;
     }
+    
+    public void print() {
+		printLevel(root, 0, "root");
+	}
+	
+	private void printLevel(Node current, int i, String pos) {
+		if(current == null) {
+			return;
+		}
+		for(int j = 0 ; j < i ; j++) {
+			System.out.print(" ");
+		}
+		System.out.println(current.data + " " + pos);
+		printLevel(current.left, i + 1, "left");
+		printLevel(current.right, i + 1, "right");
+	}
     
     private class Node {
         
