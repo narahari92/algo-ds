@@ -28,7 +28,6 @@ public class BFSTest {
 		graph.addEdge(node4, node7);
 		BFS<Integer> bfs = new BFS<>(graph);
 		bfs.calculate(new Vertex<Integer>(1));
-		System.out.println(node1.getAttribute("color") + " - " + node1.getAttribute("distance"));
 		assertTrue(node1.getAttribute("color").equals("black") && node1.getAttribute("distance").equals(0));
 		assertTrue(node2.getAttribute("color").equals("black") && node2.getAttribute("distance").equals(1));
 		assertTrue(node3.getAttribute("color").equals("black") && node3.getAttribute("distance").equals(1));

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.techstuff.algods.ds.Queue;
 
+// Breadth First Search
 public class BFS<T> {
 
 	private Graph<T> graph;
