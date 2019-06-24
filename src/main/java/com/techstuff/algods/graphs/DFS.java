@@ -25,6 +25,7 @@ public class DFS<T> {
 	
 	private void dfsVisit(Vertex<T> node) {
 		node.setAttribute("color", "gray");
+		beforeStart(node);
 		node.setAttribute("start", ++time);
 		for(Vertex<T> neighbour : graph.getEdges(node)) {
 			if(neighbour.getAttribute("color").equals("white")) {
@@ -34,6 +35,15 @@ public class DFS<T> {
 		}
 		node.setAttribute("color", "black");
 		node.setAttribute("end", ++time);
+		afterFinish(node);
+	}
+	
+	public void beforeStart(Vertex<T> node) {
+		
+	}
+	
+	public void afterFinish(Vertex<T> node) {
+		
 	}
 
 }
