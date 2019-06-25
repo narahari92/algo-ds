@@ -11,4 +11,6 @@ public interface Graph<T> {
 	
 	public void addEdge(Vertex<T> source, Vertex<T> destination);
 	
+	public Graph<T> transpose();
+	
 }

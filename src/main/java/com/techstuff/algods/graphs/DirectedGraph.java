@@ -1,26 +1,31 @@
 package com.techstuff.algods.graphs;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-//This is undirected graph
-public class AdjacencyListGraph<T> implements Graph<T> {
-
+public class DirectedGraph<T> implements Graph<T> {
+	
 	private Map<Vertex<T>, List<Vertex<T>>> graph;
 	
-	public AdjacencyListGraph(Map<Vertex<T>, List<Vertex<T>>> graph) {
+	private Set<Vertex<T>> nodes;
+	
+	public DirectedGraph(Map<Vertex<T>, List<Vertex<T>>> graph) {
 		this.graph = graph;
+		this.nodes = new HashSet<>();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Vertex<T>> getEdges(Vertex<T> node) {
-		return graph.get(node);
+		return graph.get(node) == null ? Collections.EMPTY_LIST : graph.get(node);
 	}
 	
 	public Set<Vertex<T>> getNodes() {
-		return graph.keySet();
+		return nodes;
 	}
 	
 	@Override
@@ -29,10 +34,8 @@ public class AdjacencyListGraph<T> implements Graph<T> {
 			graph.put(source, new ArrayList<Vertex<T>>());
 		}
 		graph.get(source).add(destination);
-		if(!graph.containsKey(destination)) {
-			graph.put(destination, new ArrayList<Vertex<T>>());
-		}
-		graph.get(destination).add(source);
+		nodes.add(source);
+		nodes.add(destination);
 	}
 
 	@Override

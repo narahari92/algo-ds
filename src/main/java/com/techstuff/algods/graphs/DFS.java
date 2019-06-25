@@ -18,7 +18,9 @@ public class DFS<T> {
 		
 		for(Vertex<T> node : graph.getNodes()) {
 			if(node.getAttribute("color").equals("white")) {
+				beforeNewSource(node);
 				dfsVisit(node);
+				afterNewSource(node);
 			}
 		}
 	}
@@ -43,6 +45,14 @@ public class DFS<T> {
 	}
 	
 	public void afterFinish(Vertex<T> node) {
+		
+	}
+	
+	public void beforeNewSource(Vertex<T> node) {
+		
+	}
+	
+	public void afterNewSource(Vertex<T> node) {
 		
 	}
 
