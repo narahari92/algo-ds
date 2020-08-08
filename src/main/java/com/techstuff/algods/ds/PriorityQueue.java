@@ -2,11 +2,11 @@ package com.techstuff.algods.ds;
 
 import java.util.List;
 
-public class PriorityQuery<T extends Comparable<T>> {
+public class PriorityQueue<T extends Comparable<T>> {
 
     private Heap<T> heap;
     
-    public PriorityQuery(List<T> sequence) {
+    public PriorityQueue(List<T> sequence) {
         this.heap = new Heap<>(sequence, false);
     }
     

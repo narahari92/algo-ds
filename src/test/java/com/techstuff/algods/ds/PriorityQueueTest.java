@@ -11,14 +11,14 @@ public class PriorityQueueTest {
 
     @Test
     public void testGetMaximum() {
-        PriorityQuery<Long> pq = new PriorityQuery<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
+        PriorityQueue<Long> pq = new PriorityQueue<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
         long max = pq.getMaximum();
         assertEquals(11l, max);
     }
     
     @Test
     public void testExtractMaximum() {
-        PriorityQuery<Long> pq = new PriorityQuery<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
+        PriorityQueue<Long> pq = new PriorityQueue<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
         long max = pq.extractMaximum();
         assertEquals(11l, max);
         max = pq.getMaximum();
@@ -27,7 +27,7 @@ public class PriorityQueueTest {
     
     @Test
     public void testIncreaseKey() {
-        PriorityQuery<Long> pq = new PriorityQuery<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
+        PriorityQueue<Long> pq = new PriorityQueue<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
         pq.increaseKey(3, 12l);
         List<Long> expected = Arrays.asList(12l, 11l, 7l, 10l, 9l, 4l);
         List<Long> actual = pq.getHeap().backingSequence();
@@ -36,7 +36,7 @@ public class PriorityQueueTest {
     
     @Test
     public void testInsertKey() {
-        PriorityQuery<Long> pq = new PriorityQuery<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
+        PriorityQueue<Long> pq = new PriorityQueue<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
         pq.insertKey(8l);
         List<Long> expected = Arrays.asList(11l, 10l, 8l, 5l, 9l, 4l, 7l);
         List<Long> actual = pq.getHeap().backingSequence();
@@ -45,7 +45,7 @@ public class PriorityQueueTest {
     
     @Test
     public void testInsertKeyAfterDeletions() {
-        PriorityQuery<Long> pq = new PriorityQuery<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
+        PriorityQueue<Long> pq = new PriorityQueue<>(Arrays.asList(10l, 9l, 4l, 5l, 11l, 7l));
         pq.extractMaximum();
         pq.extractMaximum();
         pq.insertKey(6l);
