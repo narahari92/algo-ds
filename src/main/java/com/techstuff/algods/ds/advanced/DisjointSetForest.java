@@ -1,7 +1,5 @@
 package com.techstuff.algods.ds.advanced;
 
-import com.techstuff.algods.ds.advanced.LinkedListDisjointSet.Node;
-
 public class DisjointSetForest<T> {
 	
 	private Node<T> root;
