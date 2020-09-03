@@ -58,7 +58,7 @@ public class FibonacciHeapTest {
 	@Test
 	public void testDecreaseKey() {
 		FibonacciHeap<Integer> heap = new FibonacciHeap<>();
-		Map<Integer, Node> nodeMap = new HashMap<>();
+		Map<Integer, FibonacciHeap<Integer>.Node> nodeMap = new HashMap<>();
 		nodeMap.put(24, heap.insert(24));
 		nodeMap.put(17, heap.insert(17));
 		nodeMap.put(3, heap.insert(3));
@@ -82,7 +82,7 @@ public class FibonacciHeapTest {
 	@Test
 	public void testDeleteNode() {
 		FibonacciHeap<Integer> heap = new FibonacciHeap<>();
-		Map<Integer, Node> nodeMap = new HashMap<>();
+		Map<Integer, FibonacciHeap<Integer>.Node> nodeMap = new HashMap<>();
 		nodeMap.put(24, heap.insert(24));
 		nodeMap.put(17, heap.insert(17));
 		nodeMap.put(3, heap.insert(3));

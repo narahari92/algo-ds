@@ -163,7 +163,7 @@ public class FibonacciHeap<T extends Comparable<T>> {
 		return rootListData.stream().map(node -> node.key).collect(Collectors.toList());
 	}
 	
-	class Node {
+	public class Node {
 
 		private T key;
 		

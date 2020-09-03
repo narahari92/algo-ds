@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class Vertex<T> {
 	
-	private T payload;
+	protected T payload;
 
-	private Map<String, Object> attributes = new HashMap<>();
+	protected Map<String, Object> attributes = new HashMap<>();
 	
 	public Vertex(T payload) {
 		this.payload = payload;
