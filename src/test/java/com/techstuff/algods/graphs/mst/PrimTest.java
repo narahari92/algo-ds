@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.techstuff.algods.graphs.ComparableVertex;
 import com.techstuff.algods.graphs.Edge;
 import com.techstuff.algods.graphs.Vertex;
 import com.techstuff.algods.graphs.WeightedGraph;
@@ -33,15 +34,15 @@ public class PrimTest {
 	
 	private WeightedGraph<Integer, Character> constructWeightedGraph() {
 		WeightedGraph<Integer, Character> graph = new WeightedGraph<>();
-		PrimVertex<Character> node1 = new PrimVertex<Character>('a');
-		PrimVertex<Character> node2 = new PrimVertex<Character>('b');
-		PrimVertex<Character> node3 = new PrimVertex<Character>('c');
-		PrimVertex<Character> node4 = new PrimVertex<Character>('d');
-		PrimVertex<Character> node5 = new PrimVertex<Character>('e');
-		PrimVertex<Character> node6 = new PrimVertex<Character>('f');
-		PrimVertex<Character> node7 = new PrimVertex<Character>('g');
-		PrimVertex<Character> node8 = new PrimVertex<Character>('h');
-		PrimVertex<Character> node9 = new PrimVertex<Character>('i');
+		ComparableVertex<Character> node1 = new ComparableVertex<Character>('a');
+		ComparableVertex<Character> node2 = new ComparableVertex<Character>('b');
+		ComparableVertex<Character> node3 = new ComparableVertex<Character>('c');
+		ComparableVertex<Character> node4 = new ComparableVertex<Character>('d');
+		ComparableVertex<Character> node5 = new ComparableVertex<Character>('e');
+		ComparableVertex<Character> node6 = new ComparableVertex<Character>('f');
+		ComparableVertex<Character> node7 = new ComparableVertex<Character>('g');
+		ComparableVertex<Character> node8 = new ComparableVertex<Character>('h');
+		ComparableVertex<Character> node9 = new ComparableVertex<Character>('i');
 		graph.addEdge(node1, node2, 4);
 		graph.addEdge(node2, node3, 8);
 		graph.addEdge(node3, node4, 7);

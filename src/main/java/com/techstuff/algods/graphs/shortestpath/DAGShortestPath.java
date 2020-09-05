@@ -9,7 +9,7 @@ import com.techstuff.algods.util.Tuple2;
 
 /**
  * Finding shortest path from single source to all reachable vertices and 
- * graph is a DAG and might contain non-negative weighted edges
+ * graph is a DAG and might contain negative weighted edges
  */
 public class DAGShortestPath<T> {
 	

@@ -48,7 +48,7 @@ public class BellmanFordTest {
 		graph.addEdge(vertexx, vertext, -2);
 		graph.addEdge(vertexy, vertexx, -3);
 		graph.addEdge(vertexy, vertexz, 9);
-		graph.addEdge(vertexz, vertexs, 7);
+		graph.addEdge(vertexz, vertexx, 7);
 		graph.addEdge(vertexz, vertexs, 2);
 		return new Tuple2<WeightedDirectedGraph<Integer,Character>, Vertex<Character>>(graph, vertexs);
 	}
