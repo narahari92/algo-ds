@@ -13,10 +13,10 @@ public class PrimTest {
 
 	@Test
 	public void testOperation() {
-		WeightedGraph<Integer, Character> graph = constructWeightedGraph();
+		WeightedGraph<Double, Character> graph = constructWeightedGraph();
 		Prim<Character> prim = new Prim<>(graph);
-		List<Edge<Integer, Character>> mst = prim.mst();
-		for(Edge<Integer, Character> edge : mst) {
+		List<Edge<Double, Character>> mst = prim.mst();
+		for(Edge<Double, Character> edge : mst) {
 			System.out.println(edge.getSource().getPayload() + "--" + edge.getAttributes() + "--" + edge.getDestination().getPayload());
 		}
 		/**
@@ -32,8 +32,8 @@ public class PrimTest {
 		 */
 	}
 	
-	private WeightedGraph<Integer, Character> constructWeightedGraph() {
-		WeightedGraph<Integer, Character> graph = new WeightedGraph<>();
+	private WeightedGraph<Double, Character> constructWeightedGraph() {
+		WeightedGraph<Double, Character> graph = new WeightedGraph<>();
 		ComparableVertex<Character> node1 = new ComparableVertex<Character>('a');
 		ComparableVertex<Character> node2 = new ComparableVertex<Character>('b');
 		ComparableVertex<Character> node3 = new ComparableVertex<Character>('c');
@@ -43,20 +43,20 @@ public class PrimTest {
 		ComparableVertex<Character> node7 = new ComparableVertex<Character>('g');
 		ComparableVertex<Character> node8 = new ComparableVertex<Character>('h');
 		ComparableVertex<Character> node9 = new ComparableVertex<Character>('i');
-		graph.addEdge(node1, node2, 4);
-		graph.addEdge(node2, node3, 8);
-		graph.addEdge(node3, node4, 7);
-		graph.addEdge(node4, node5, 9);
-		graph.addEdge(node5, node6, 10);
-		graph.addEdge(node6, node7, 2);
-		graph.addEdge(node7, node8, 1);
-		graph.addEdge(node8, node1, 8);
-		graph.addEdge(node8, node9, 7);
-		graph.addEdge(node7, node9, 6);
-		graph.addEdge(node3, node9, 2);
-		graph.addEdge(node3, node6, 4);
-		graph.addEdge(node4, node6, 14);
-		graph.addEdge(node2, node8, 11);
+		graph.addEdge(node1, node2, 4.0);
+		graph.addEdge(node2, node3, 8.0);
+		graph.addEdge(node3, node4, 7.0);
+		graph.addEdge(node4, node5, 9.0);
+		graph.addEdge(node5, node6, 10.0);
+		graph.addEdge(node6, node7, 2.0);
+		graph.addEdge(node7, node8, 1.0);
+		graph.addEdge(node8, node1, 8.0);
+		graph.addEdge(node8, node9, 7.0);
+		graph.addEdge(node7, node9, 6.0);
+		graph.addEdge(node3, node9, 2.0);
+		graph.addEdge(node3, node6, 4.0);
+		graph.addEdge(node4, node6, 14.0);
+		graph.addEdge(node2, node8, 11.0);
 		return graph;
 	}
 }

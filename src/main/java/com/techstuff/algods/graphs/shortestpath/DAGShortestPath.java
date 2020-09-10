@@ -17,30 +17,27 @@ public class DAGShortestPath<T> {
 	
 	private final String parentKey = "parent";
 
-	private WeightedDirectedGraph<Integer, T> graph;
+	private WeightedDirectedGraph<Double, T> graph;
 	
-	public DAGShortestPath(WeightedDirectedGraph<Integer, T> graph) {
+	public DAGShortestPath(WeightedDirectedGraph<Double, T> graph) {
 		this.graph = graph;
 	}
 	
 	public void calculateShortestPaths(Vertex<T> source) {
 		for(Vertex<T> node : graph.getNodes()) {
-			node.setAttribute(distanceKey, Integer.MAX_VALUE);
+			node.setAttribute(distanceKey, Double.POSITIVE_INFINITY);
 			node.setAttribute(parentKey, null);
 		}
-		source.setAttribute(distanceKey, 0);
+		source.setAttribute(distanceKey, 0.0);
 		List<Vertex<T>> sortedList = topologicalSort();
 		for(Vertex<T> node : sortedList) {
-			Integer sourceDistance = (Integer)node.getAttribute(distanceKey);
-			if(sourceDistance == Integer.MAX_VALUE) {
-				continue;
-			}
-			for(Tuple2<Integer, Vertex<T>> edge : graph.getEdges(node)) {
-				Integer destinationDistance = (Integer)edge.getSecond().getAttribute(distanceKey);
-				Integer edgeWeight = edge.getFirst();
-				if(destinationDistance > sourceDistance + edgeWeight) {
-					edge.getSecond().setAttribute(distanceKey, destinationDistance + edgeWeight);
-					edge.getSecond().setAttribute("parent", source);
+			Double nodeDistance = (Double)node.getAttribute(distanceKey);
+			for(Tuple2<Double, Vertex<T>> edge : graph.getEdges(node)) {
+				Double destinationDistance = (Double)edge.getSecond().getAttribute(distanceKey);
+				Double edgeWeight = edge.getFirst();
+				if(destinationDistance > nodeDistance + edgeWeight) {
+					edge.getSecond().setAttribute(distanceKey, nodeDistance + edgeWeight);
+					edge.getSecond().setAttribute("parent", node);
 				}
 			}
 		}
@@ -62,7 +59,7 @@ public class DAGShortestPath<T> {
 	
 	private void dfsVisit(Vertex<T> node, LinkedList<Vertex<T>> list) {
 		node.setAttribute("color", "gray");
-		for(Tuple2<Integer, Vertex<T>> edge : graph.getEdges(node)) {
+		for(Tuple2<Double, Vertex<T>> edge : graph.getEdges(node)) {
 			if(edge.getSecond().getAttribute("color").equals("white")) {
 				dfsVisit(edge.getSecond(), list);
 			}

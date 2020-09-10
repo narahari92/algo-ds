@@ -19,9 +19,9 @@ public class Dijkstra<T> {
 	
 	private final String parentKey = "parent";
 
-	private WeightedDirectedGraph<Integer, T> graph;
+	private WeightedDirectedGraph<Double, T> graph;
 	
-	public Dijkstra(WeightedDirectedGraph<Integer, T> graph) {
+	public Dijkstra(WeightedDirectedGraph<Double, T> graph) {
 		this.graph = graph;
 	}
 	
@@ -29,9 +29,9 @@ public class Dijkstra<T> {
 		FibonacciHeap<ComparableVertex<T>> minPriorityQueue = new FibonacciHeap<>();
 		Map<Vertex<T>, FibonacciHeap<ComparableVertex<T>>.Node> vertexHeapMap = new HashMap<>();
 		for(Vertex<T> node : graph.getNodes()) {
-			((ComparableVertex<T>)node).setKey(Integer.MAX_VALUE);
+			((ComparableVertex<T>)node).setKey(Double.POSITIVE_INFINITY);
 			if(source.equals(node)) {
-				((ComparableVertex<T>)node).setKey(0);
+				((ComparableVertex<T>)node).setKey(0.0);
 			}
 			node.setAttribute(parentKey, null);
 			vertexHeapMap.put(node, minPriorityQueue.insert((ComparableVertex<T>)node));
@@ -40,12 +40,10 @@ public class Dijkstra<T> {
 		ComparableVertex<T> min = null;
 		while((min = minPriorityQueue.extractMin()) != null) {
 			set.add(min);
-			if(min.getKey() == Integer.MAX_VALUE) {
-				continue;
-			}
-			for(Tuple2<Integer, Vertex<T>> edge : graph.getEdges(min)) {
+			for(Tuple2<Double, Vertex<T>> edge : graph.getEdges(min)) {
 				if(((ComparableVertex<T>)edge.getSecond()).getKey() > min.getKey() + edge.getFirst()) {
 					((ComparableVertex<T>)edge.getSecond()).setKey(min.getKey() + edge.getFirst());
+					minPriorityQueue.decreaseKey(vertexHeapMap.get((ComparableVertex<T>)edge.getSecond()), (ComparableVertex<T>)edge.getSecond());
 					edge.getSecond().setAttribute(parentKey, min);
 				}
 			}

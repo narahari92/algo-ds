@@ -15,14 +15,14 @@ import com.techstuff.algods.util.Tuple2;
 
 public class Prim<T> {
 
-	private WeightedGraph<Integer, T> graph;
+	private WeightedGraph<Double, T> graph;
 	
-	public Prim(WeightedGraph<Integer, T> graph) {
+	public Prim(WeightedGraph<Double, T> graph) {
 		this.graph = graph;
 	}
 	
-	public List<Edge<Integer, T>> mst() {
-		List<Edge<Integer, T>> mst = new ArrayList<>();
+	public List<Edge<Double, T>> mst() {
+		List<Edge<Double, T>> mst = new ArrayList<>();
 		FibonacciHeap<ComparableVertex<T>> heap = new FibonacciHeap<>();
 		Set<Vertex<T>> nodes = graph.getNodes();
 		if(nodes.isEmpty()) {
@@ -31,9 +31,9 @@ public class Prim<T> {
 		int i = 0;
 		Map<Vertex<T>, FibonacciHeap<ComparableVertex<T>>.Node> heapMap = new HashMap<>();
 		for(Vertex<T> vertex : nodes) {
-			((ComparableVertex<T>)vertex).setKey(Integer.MAX_VALUE);
+			((ComparableVertex<T>)vertex).setKey(Double.POSITIVE_INFINITY);
 			if(i == 0) {
-				((ComparableVertex<T>)vertex).setKey(0);
+				((ComparableVertex<T>)vertex).setKey(0.0);
 			}
 			vertex.setAttribute("inHeap", true);
 			vertex.setAttribute("parent", null);
@@ -46,8 +46,8 @@ public class Prim<T> {
 			if(vertex.getAttribute("parent") != null) {
 				mst.add(new Edge<>((Vertex<T>)vertex.getAttribute("parent"), vertex, vertex.getKey()));
 			}
-			for(Tuple2<Integer, Vertex<T>> edge : graph.getEdges(vertex)) {
-				Integer weight = edge.getFirst();
+			for(Tuple2<Double, Vertex<T>> edge : graph.getEdges(vertex)) {
+				Double weight = edge.getFirst();
 				ComparableVertex<T> neighbour = (ComparableVertex<T>)edge.getSecond();
 				if(neighbour.getAttribute("inHeap").equals(true) && neighbour.getKey() > weight) {
 					neighbour.setKey(weight);

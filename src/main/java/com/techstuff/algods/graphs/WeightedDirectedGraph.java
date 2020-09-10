@@ -35,8 +35,16 @@ public class WeightedDirectedGraph<K, T> {
 			graph.put(source, new ArrayList<>());
 		}
 		graph.get(source).add(new Tuple2<>(edgeAttr, destination));
-		nodes.add(source);
-		nodes.add(destination);
+		if(!nodes.contains(source)) {
+			nodes.add(source);
+		}
+		if(!nodes.contains(destination)) {
+			nodes.add(destination);
+		}
+	}
+	
+	public void addNode(Vertex<T> node) {
+		nodes.add(node);
 	}
 	
 	public List<Edge<K, T>> getEdges() {
