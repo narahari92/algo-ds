@@ -25,6 +25,15 @@ public class WeightedDirectedGraph<K, T> {
 	public List<Tuple2<K, Vertex<T>>> getEdges(Vertex<T> node) {
 		return graph.get(node) == null ? Collections.EMPTY_LIST : graph.get(node);
 	}
+	
+	public K getEdgeAttribute(Vertex<T> source, Vertex<T> destination) {
+		for(Tuple2<K, Vertex<T>> edge : getEdges(source)) {
+			if(edge.getSecond().equals(destination)) {
+				return edge.getFirst();
+			}
+		}
+		return null;
+	}
 
 	public Set<Vertex<T>> getNodes() {
 		return nodes;
@@ -43,6 +52,24 @@ public class WeightedDirectedGraph<K, T> {
 		}
 	}
 	
+	public boolean edgeExists(Vertex<T> source, Vertex<T> destination) {
+		return edgeIndex(source, destination) != -1;
+	}
+	
+	public void modifyEdge(Vertex<T> source, Vertex<T> destination, K edgeAttr) {
+		int nodeIndex = edgeIndex(source, destination);
+		if(nodeIndex != -1) {
+			getEdges(source).set(nodeIndex, new Tuple2<>(edgeAttr, destination));
+		}
+	}
+	
+	public void deleteEdge(Vertex<T> source, Vertex<T> destination) {
+		int nodeIndex = edgeIndex(source, destination);
+		if(nodeIndex != -1) {
+			getEdges(source).remove(nodeIndex);
+		}
+	}
+	
 	public void addNode(Vertex<T> node) {
 		nodes.add(node);
 	}
@@ -55,5 +82,21 @@ public class WeightedDirectedGraph<K, T> {
 			}
 		}
 		return edges;
+	}
+	
+	private int edgeIndex(Vertex<T> source, Vertex<T> destination) {
+		int edgeIndex = -1;
+		boolean found = false;
+		for(Tuple2<K, Vertex<T>> edge : getEdges(source)) {
+			edgeIndex++;
+			if(edge.getSecond().equals(destination)) {
+				found = true;
+				break;
+			}
+		}
+		if(!found) {
+			return -1;
+		}
+		return edgeIndex;
 	}
 }
